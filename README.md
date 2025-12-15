@@ -39,27 +39,43 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 
 **PROGRAM**
 ```
-module jkflipflop(J,K,clk,q,qbar);
-input J,K,clk;
-output reg q;
-output reg qbar;
-initial q=0;
-initial qbar=1;
-always @(posedge clk)
-begin
-q=((J&(~q)))|((~K)&q);
-qbar=~q;
+module JK(
+input clk,
+input j,
+input k,
+output reg q,
+output reg qbar
+);
+
+always @(posedge clk) begin
+if (j == 0 && k == 0) begin
+    q <= q;
+    qbar <= qbar;
+end 
+else if (j == 0 && k == 1) begin
+    q <= 0;
+    qbar <= 1;
+end 
+else if (j == 1 && k == 0) begin
+    q <= 1;
+    qbar <= 0;
+end 
+else if (j == 1 && k == 1) begin
+    q <= ~q;
+    qbar <= ~qbar;
 end
+end
+
 endmodule
 
 ```
 
-### RTL LOGIC FOR FLIPFLOPS**
-<img width="1919" height="1079" alt="RTL exp-5" src="https://github.com/user-attachments/assets/d384ace7-b921-4a14-b26d-85db64194234" />
+### RTL LOGIC FOR FLIPFLOPS:
+<img width="1919" height="1067" alt="RTL exp-5" src="https://github.com/user-attachments/assets/da34f809-6320-46c9-8cbe-e73221d1f6c5" />
 
 
 ### TIMING WAVEFORM DIGRAM:
-<img width="1919" height="1068" alt="WAVE exp-05" src="https://github.com/user-attachments/assets/23584be4-b07d-422f-92e5-f44596722431" />
+<img width="1919" height="1079" alt="WAVE exp-5" src="https://github.com/user-attachments/assets/0d3c02dd-170c-4e08-8613-ccc571cf61c8" />
 
 
 ## RESULTS
